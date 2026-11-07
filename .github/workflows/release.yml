@@ -43,3 +43,16 @@ jobs:
         with:
           files: "*.tar.gz"
           generate_release_notes: true
+
+  distro:
+    needs: build
+    uses: LunaDesktop/luna/.github/workflows/distro-packages.yml@main
+    with:
+      package: "luna-installer"
+      description: "Luna Installer — instalator systemu"
+      binaries: "luna-installer"
+      files: |
+        packaging/eu.luna.Installer.desktop:/usr/share/applications/eu.luna.Installer.desktop:644
+      deb_depends: "libc6,libxkbcommon0,libxcursor1,libwayland-client0"
+      rpm_depends: "glibc,libxkbcommon,libXcursor,libwayland-client"
+      arch_depends: "glibc,libxkbcommon,libxcursor,wayland"
